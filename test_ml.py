@@ -30,13 +30,21 @@ def real_data_sample():
     """
     project_path = "/home/missm/Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
     data_path = os.path.join(project_path, "data", "census.csv")
-    full_data = pd.read_csv(data_path)
+    try:
+        full_data = pd.read_csv(data_path)
+    except:
+        github_workspace = os.environ.get("GITHUB_WORKSPACE")
+        if github_workspace:
+            ci_data_path = os.path.join(github_workspace, "data", "census.csv")
+            full_data = pd.read_csv(ci_data_path)
+        else:
+            raise
     sample_size = 75
-    sample_df = full_data.sample(n=sample_size)
+    sample_df = full_data.sample(n=sample_size).copy()
     return sample_df
 
 @pytest.fixture(scope="module")
-def processed_data_and_model(real_data_sample): # <-- FIX: Corrected fixture name
+def processed_data_and_model(real_data_sample): 
     """
     Processes the sampled real data and trains a model once for all tests in this module.
     Returns X_processed, y_processed, encoder, lb, and the trained model.
