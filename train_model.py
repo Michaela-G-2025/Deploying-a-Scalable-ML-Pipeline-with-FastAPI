@@ -12,15 +12,18 @@ from ml.model import (
     save_model,
     train_model,
 )
+
 # TODO: load the cencus.csv data
-project_path = "Your path here"
+project_path = "/home/missm/Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
 data_path = os.path.join(project_path, "data", "census.csv")
 print(data_path)
-data = None # your code here
+data = pd.read_csv(data_path)
 
-# TODO: split the provided data to have a train dataset and a test dataset
-# Optional enhancement, use K-fold cross validation instead of a train-test split.
-train, test = None, None# Your code here
+# Ensuring salary is the column to be predicted
+X = data.drop('salary', axis=1)
+y = data['salary']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=5, stratify=y)
+
 
 # DO NOT MODIFY
 cat_features = [
@@ -36,10 +39,11 @@ cat_features = [
 
 # TODO: use the process_data function provided to process the data.
 X_train, y_train, encoder, lb = process_data(
-    # your code here
-    # use the train dataset 
-    # use training=True
-    # do not need to pass encoder and lb as input
+    X_train,
+    y_train,
+    categorical_features=cat_features,
+    label='salary',
+    training=True
     )
 
 X_test, y_test, _, _ = process_data(
@@ -51,8 +55,8 @@ X_test, y_test, _, _ = process_data(
     lb=lb,
 )
 
-# TODO: use the train_model function to train the model on the training dataset
-model = None # your code here
+# Use the train_model function to train the model on the training dataset
+model = train_model(X_train, y_train)
 
 # save the model and the encoder
 model_path = os.path.join(project_path, "model", "model.pkl")
@@ -66,7 +70,7 @@ model = load_model(
 ) 
 
 # TODO: use the inference function to run the model inferences on the test dataset.
-preds = None # your code here
+preds = inference(model, X_test)
 
 # Calculate and print the metrics
 p, r, fb = compute_model_metrics(y_test, preds)
