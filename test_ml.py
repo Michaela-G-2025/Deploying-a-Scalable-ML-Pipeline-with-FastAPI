@@ -1,6 +1,8 @@
 import pytest
 import pandas as pd
 import numpy as np
+import os
+from pathlib import Path
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
@@ -26,8 +28,9 @@ def real_data_sample():
     Fixture to load a small, representative sample of the real census.csv data
     for testing.
     """
-    project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-    data_path = os.path.join(project_path, "data", "census.csv")
+    wsl_path_str = r"\\wsl.localhost\Ubuntu\home\missm\Deploying-a-Scalable-ML-Pipeline-with-FastAPI\data"
+    data_directory = Path(wsl_path_str)
+    data_path = data_directory / "census.csv"
     full_data = pd.read_csv(data_path)
     sample_size = 75
     sample_df = full_data.sample(n=sample_size)
