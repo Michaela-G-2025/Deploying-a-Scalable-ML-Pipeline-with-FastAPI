@@ -40,14 +40,14 @@ cat_features = [
 # Use the process_data function provided to process the data.
 
 X_train, y_train, encoder, lb = process_data(
-    train,
+    X_train.copy(),
     categorical_features=cat_features,
     label='salary',
     training=True
 )
 
 X_test, y_test, _, _ = process_data(
-    test,  # Pass the full test DataFrame here
+    X_test.copy(),  # Pass the full test DataFrame here
     categorical_features=cat_features,
     label="salary",
     training=False,
