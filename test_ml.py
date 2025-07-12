@@ -44,7 +44,7 @@ def real_data_sample():
     return sample_df
 
 @pytest.fixture(scope="module")
-def processed_data_and_model(real_data_sample): 
+def processed_data_and_model(real_data_sample):
     """
     Processes the sampled real data and trains a model once for all tests in this module.
     Returns X_processed, y_processed, encoder, lb, and the trained model.
