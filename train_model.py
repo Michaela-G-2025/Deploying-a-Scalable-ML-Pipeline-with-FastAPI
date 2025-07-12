@@ -22,7 +22,7 @@ data = pd.read_csv(data_path)
 # Ensuring salary is the column to be predicted
 X = data.drop('salary', axis=1)
 y = data['salary']
-X_train, X_test, y_train, y_test = train_test_split(data, test_size=0.2, random_state=5, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=5, stratify=y)
 
 
 # DO NOT MODIFY
