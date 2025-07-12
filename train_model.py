@@ -22,7 +22,7 @@ data = pd.read_csv(data_path)
 # Ensuring salary is the column to be predicted
 X = data.drop('salary', axis=1)
 y = data['salary']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=5, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(data, test_size=0.2, random_state=5, stratify=y)
 
 
 # DO NOT MODIFY
@@ -37,17 +37,17 @@ cat_features = [
     "native-country",
 ]
 
-# TODO: use the process_data function provided to process the data.
+# Use the process_data function provided to process the data.
+
 X_train, y_train, encoder, lb = process_data(
-    X_train,
-    y_train,
+    train,
     categorical_features=cat_features,
     label='salary',
     training=True
-    )
+)
 
 X_test, y_test, _, _ = process_data(
-    test,
+    test,  # Pass the full test DataFrame here
     categorical_features=cat_features,
     label="salary",
     training=False,
