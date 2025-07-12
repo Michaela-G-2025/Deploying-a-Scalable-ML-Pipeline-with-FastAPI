@@ -10,7 +10,7 @@ r_get = requests.get(base_URL)
 # Print the status code
 print(f'GET status code: {r_get.status_code}')
 # Print the welcome message
-print(f'GET response: {r_get.json().get('message','No message found')})')
+print("GET response: {r_get.json().get('message','No message found')})")
 
 
 

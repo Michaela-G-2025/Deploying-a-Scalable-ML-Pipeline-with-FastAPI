@@ -72,7 +72,7 @@ async def post_inference(data: Data):
         "native-country",
     ]
     data_processed, _, _, _ = process_data(
-        data=data,
+        data,
         categorical_features=cat_features,
         label=None,
         training=False,
