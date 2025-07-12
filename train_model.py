@@ -67,7 +67,7 @@ model = load_model(
     model_path
 ) 
 
-# TODO: use the inference function to run the model inferences on the test dataset.
+# Use the inference function to run the model inferences on the test dataset.
 preds = inference(model, X_test)
 
 # Calculate and print the metrics
@@ -80,6 +80,7 @@ for col in cat_features:
     # iterate through the unique values in one categorical feature
     for slicevalue in sorted(test[col].unique()):
         count = test[test[col] == slicevalue].shape[0]
+        sliced_test_data = test[test[col] == slicevalue].copy()
         p, r, fb = performance_on_categorical_slice(
             data=sliced_test_data,
             column_name=col,
