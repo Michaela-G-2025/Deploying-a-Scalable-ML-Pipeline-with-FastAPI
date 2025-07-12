@@ -2,13 +2,15 @@ import json
 
 import requests
 
-# TODO: send a GET using the URL http://127.0.0.1:8000
-r = None # Your code here
+# Send a GET using the URL
+base_URL = "http://localhost:8080"
+r = requests.get(base_URL)
+r_get = requests.get(base_URL)
 
-# TODO: print the status code
-# print()
-# TODO: print the welcome message
-# print()
+# Print the status code
+print(f'GET status code: {r_get.status_code}')
+# Print the welcome message
+print(f'GET response: {r_get.json().get('message','No message found')})')
 
 
 
@@ -29,10 +31,10 @@ data = {
     "native-country": "United-States",
 }
 
-# TODO: send a POST using the data above
-r = None # Your code here
+# Send a POST using the data above
+r_post = requests.post(base_URL + '/data/', json=data)
 
-# TODO: print the status code
-# print()
-# TODO: print the result
-# print()
+# Print the status code
+print(f'POST Status Code: {r_post.status_code}')
+# Print the result
+print(f"POST result: {r_post.json().get('result', 'No prediction found')}")
